@@ -22,6 +22,7 @@ def home():
         dictionary.pop("_id", None)
         new_list.append(dictionary)
         counter += 1
+    print(len(new_list))
     internships = jsonify(new_list)
     return internships
 

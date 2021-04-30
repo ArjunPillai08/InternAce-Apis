@@ -14,5 +14,7 @@ for i in all_instances:
     print("")
     new_list.append(dictionary)
     counter += 1
+print(len(new_list))
+
 """for instance in all_instances:
     print(instance)"""

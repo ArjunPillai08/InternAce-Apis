@@ -1,0 +1,8 @@
+.env
+__pycache__
+scrapers/__pycache__
+.vscode/
+.vscode
+*.pyc
+scrapers/*.pyc
+
