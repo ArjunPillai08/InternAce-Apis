@@ -1,5 +1,4 @@
 flask
 pymongo
-beautifulsoup4
-numpy
 python-dotenv
+gunicorn
