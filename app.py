@@ -1,9 +1,11 @@
 from flask import Flask, redirect, jsonify
-from app import variable_maker
 from db_auth import connect_to_db
 import pymongo, ssl, os
 from dotenv import load_dotenv
 import json
+
+"""
+"""
 
 collection = connect_to_db()
 #all_instances = collection.find()#
@@ -27,4 +29,4 @@ def home():
     return internships
 
 if __name__ == "__main__":
-    app.run(host=host, port=port, debug=True)
+    app.run(host=host, port=port, debug=False)
