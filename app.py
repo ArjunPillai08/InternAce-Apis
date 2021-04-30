@@ -1,18 +1,30 @@
 from flask import Flask, redirect, jsonify
+from app import variable_maker
+from db_auth import connect_to_db
+import pymongo, ssl, os
+from dotenv import load_dotenv
+import json
 
-port = 3000
-host = "0.0.0.0"
-
+collection = connect_to_db()
+#all_instances = collection.find()#
 app = Flask(__name__)
 
-def variable_maker():
-    variable = {"day": 1, "month": 2, "year": 3}
-    return variable
+port = 4001
+host = "0.0.0.0"
 
-@app.route("/internships")
+@app.route("/opportunities")
 def home():
-    internships = variable_maker()
-    return jsonify(internships)
+    all_instances = list(collection.find({}))
+    new_list = list()
+    counter = 0
+    for i in all_instances:
+        dictionary = all_instances[counter]
+        dictionary.pop("_id", None)
+        new_list.append(dictionary)
+        counter += 1
+    print(len(new_list))
+    internships = jsonify(new_list)
+    return internships
 
 if __name__ == "__main__":
-    app.run(host=host, port=port)
+    app.run(host=host, port=port, debug=True)
