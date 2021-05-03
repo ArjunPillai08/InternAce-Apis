@@ -14,7 +14,7 @@ app = Flask(__name__)
 port = 4001
 host = "0.0.0.0"
 
-@app.route("/all")
+@app.route("/internships")
 def home():
     all_instances = list(collection.find({}))
     new_list = list()
@@ -28,65 +28,19 @@ def home():
     internships = jsonify(new_list)
     return internships
 
-@app.route("/remote")
+@app.route("/internships/remote")
 def remote():
-    all_instances = list(collection.find({}))
-    new_list = list()
-    counter = 0
-    for i in all_instances:
-        dictionary = all_instances[counter]
-        if dictionary["is_remote"] == None or dictionary["is_remote"] ==  False:
-            dictionary.pop("_id", None)
-            new_list.append(dictionary)
-        counter += 1
-    print(len(new_list))
-    internships = jsonify(new_list)
-    return internships
+    my_query = {"is_remote": True}
+    all_instances = list(collection.find(my_query, {"_id": 0}))
+    return jsonify(all_instances)
 
-@app.route("/disney")
-def disney():
-    all_instances = list(collection.find({}))
-    new_list = list()
-    counter = 0
-    for i in all_instances:
-        dictionary = all_instances[counter]
-        if "disney" in dictionary["href"]:
-            dictionary.pop("_id", None)
-            new_list.append(dictionary)
-        counter += 1
-    print(len(new_list))
-    internships = jsonify(new_list)
-    return internships
-
-@app.route("/target")
-def target():
-    all_instances = list(collection.find({}))
-    new_list = list()
-    counter = 0
-    for i in all_instances:
-        dictionary = all_instances[counter]
-        if "target" in dictionary["href"]:
-            dictionary.pop("_id", None)
-            new_list.append(dictionary)
-        counter += 1
-    print(len(new_list))
-    internships = jsonify(new_list)
-    return internships
-
-@app.route("/warnerbros")
-def warnerbros():
-    all_instances = list(collection.find({}))
-    new_list = list()
-    counter = 0
-    for i in all_instances:
-        dictionary = all_instances[counter]
-        if "warnerbros" in dictionary["href"]:
-            dictionary.pop("_id", None)
-            new_list.append(dictionary)
-        counter += 1
-    print(len(new_list))
-    internships = jsonify(new_list)
-    return internships
+@app.route("/internships/industry/<name>")
+def in_person(name):
+    name = name.capitalize()
+    my_query = {"industry": str(name)}
+    all_instances = list(collection.find(my_query, {"_id": 0}))
+    print(all_instances)
+    return jsonify(all_instances)
 
 if __name__ == "__main__":
     app.run()
