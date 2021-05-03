@@ -14,7 +14,7 @@ app = Flask(__name__)
 port = 4001
 host = "0.0.0.0"
 
-@app.route("/opportunities")
+@app.route("/all")
 def home():
     all_instances = list(collection.find({}))
     new_list = list()
@@ -23,6 +23,66 @@ def home():
         dictionary = all_instances[counter]
         dictionary.pop("_id", None)
         new_list.append(dictionary)
+        counter += 1
+    print(len(new_list))
+    internships = jsonify(new_list)
+    return internships
+
+@app.route("/remote")
+def remote():
+    all_instances = list(collection.find({}))
+    new_list = list()
+    counter = 0
+    for i in all_instances:
+        dictionary = all_instances[counter]
+        if dictionary["is_remote"] == None or dictionary["is_remote"] ==  False:
+            dictionary.pop("_id", None)
+            new_list.append(dictionary)
+        counter += 1
+    print(len(new_list))
+    internships = jsonify(new_list)
+    return internships
+
+@app.route("/disney")
+def disney():
+    all_instances = list(collection.find({}))
+    new_list = list()
+    counter = 0
+    for i in all_instances:
+        dictionary = all_instances[counter]
+        if "disney" in dictionary["href"]:
+            dictionary.pop("_id", None)
+            new_list.append(dictionary)
+        counter += 1
+    print(len(new_list))
+    internships = jsonify(new_list)
+    return internships
+
+@app.route("/target")
+def target():
+    all_instances = list(collection.find({}))
+    new_list = list()
+    counter = 0
+    for i in all_instances:
+        dictionary = all_instances[counter]
+        if "target" in dictionary["href"]:
+            dictionary.pop("_id", None)
+            new_list.append(dictionary)
+        counter += 1
+    print(len(new_list))
+    internships = jsonify(new_list)
+    return internships
+
+@app.route("/warnerbros")
+def warnerbros():
+    all_instances = list(collection.find({}))
+    new_list = list()
+    counter = 0
+    for i in all_instances:
+        dictionary = all_instances[counter]
+        if "warnerbros" in dictionary["href"]:
+            dictionary.pop("_id", None)
+            new_list.append(dictionary)
         counter += 1
     print(len(new_list))
     internships = jsonify(new_list)
