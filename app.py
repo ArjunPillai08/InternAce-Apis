@@ -6,19 +6,14 @@ from flask_pymongo import PyMongo
 from bson.json_util import dumps
 import re
 from flask_cors import CORS
-from db_auth import connect_to_db
 
-"""
-"""
 app = flask.Flask(__name__)
 CORS(app)
 
-db = connect_to_db()
-#all_instances = collection.find()#
-
-port = 4001
-host = "0.0.0.0"
-
+app.config["MONGO_URI"] = "mongodb+srv://ArjunPillai08:Adrith1234567@database.8j5xq.mongodb.net/InternAce?retryWrites=true&w=majority"
+mongodb_client = PyMongo(app)
+db = mongodb_client.db
+    
 @app.route('/',methods = ['GET'])
 def get_data():
 
