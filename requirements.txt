@@ -3,3 +3,4 @@ pymongo
 python-dotenv
 gunicorn
 dnspython
+Flask-Cors==3.0.10
